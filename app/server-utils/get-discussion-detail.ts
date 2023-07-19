@@ -87,6 +87,7 @@ export async function getDiscussionDetail(discussionId: Number): Promise<Discuss
       bodyHTML,
       comments: comments.map(
         ({ node: { author, createdAt, bodyHTML } }: any) => ({
+          id,
           author: author.login,
           createdAt,
           bodyHTML,
