@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import GitHubLoginButton from './github-login-button';
 
 const Page: React.FC = () => {
   return (
@@ -63,6 +64,8 @@ const Page: React.FC = () => {
             Learn about myself and yourself!
           </p>
         </Link>
+
+        <GitHubLoginButton />
       </div>
     </main>
   )
