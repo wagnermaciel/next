@@ -45,6 +45,7 @@ export async function getDiscussionDetail(discussionId: Number): Promise<Discuss
         comments(first: 10) {
           edges {
             node {
+              id
               author {
                 login
               }
@@ -86,7 +87,7 @@ export async function getDiscussionDetail(discussionId: Number): Promise<Discuss
       reactionGroups,
       bodyHTML,
       comments: comments.map(
-        ({ node: { author, createdAt, bodyHTML } }: any) => ({
+        ({ node: { id, author, createdAt, bodyHTML, replies } }: any) => ({
           id,
           author: author.login,
           createdAt,
@@ -96,3 +97,47 @@ export async function getDiscussionDetail(discussionId: Number): Promise<Discuss
     },
   };
 }
+
+export async function getCommentReplies(commentId: Number): Promise<Comment[]> {
+  const data: any = await queryGraphql(
+    `
+  query discussionDetails($commentId: ID!) {
+    node(id: $commentId) {
+      ... on DiscussionComment {
+        replies(first: 10) {
+          edges {
+            node {
+              id
+              author {
+                login
+              }
+              createdAt
+              bodyHTML
+            }
+          }
+        }
+      }
+    }
+  }`,
+    {
+      commentId: commentId,
+    }
+  );
+
+  const {
+    node: {
+      replies: { edges: replies }
+    }
+  } = data;
+
+  return replies.map(
+      ({ node: { id, author, createdAt, bodyHTML} }: any) => ({
+        id,
+        author: author.login,
+        createdAt,
+        bodyHTML,
+      })
+  );
+}
+
+
