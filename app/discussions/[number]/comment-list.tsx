@@ -2,7 +2,9 @@
 
 import React from 'react'
 
-export const Comment = ({comment}) => {
+import type {Comment as CommentData} from '@/app/server-utils/get-discussion-detail'
+
+export const Comment: React.FC<{comment: CommentData}> = ({comment}) => {
   return (
     <div className="group mt-5 rounded-lg px-5 py-4
                     transition-colors border border-gray-300 bg-gray-100">
@@ -15,7 +17,7 @@ export const Comment = ({comment}) => {
   );
 };
 
-export const CommentList = ({comments}) => {
+export const CommentList: React.FC<{comments: CommentData[]}> = ({comments}) => {
   return (
     comments.map(comment =>
       <Comment comment={comment} key={comment.id} />
