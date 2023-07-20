@@ -7,7 +7,7 @@ const Page: React.FC = async () => {
   // Server side data
   const res = await getDiscussionsList();
 
-  return (    
+  return (
     <DiscussionList discussions = {res.discussions}></DiscussionList>
   )
 };
