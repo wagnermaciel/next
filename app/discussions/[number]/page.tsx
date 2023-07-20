@@ -6,7 +6,7 @@ import {CommentList} from './comment-list';
 
 import type {DiscussionDetail} from '@/app/server-utils/get-discussion-detail';
 
-const Page: React.FC = async ({params}) => {
+const Page: React.FC<{params: {number: number}}> = async ({params}) => {
   const data = await getDiscussionDetail(Number(params.number));
   const discussion = data.discussion;
   return (
