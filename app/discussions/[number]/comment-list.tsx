@@ -10,11 +10,12 @@ const fetcher = (url: string) => fetch(url).then(r => r.json());
 const Comment: React.FC<{comment: CommentData, allowReplies: boolean}> = ({comment, allowReplies}) => {
   const [viewReplies, setViewReplies] = useState(false);
 
-  const {data} = useSWR(() => (viewReplies ? `/api/comments/${comment.id}` : null), fetcher);
+  const viewRepliesUrl = encodeURI(`/api/comments/${comment.id}`);
+  const {data} = useSWR(() => (viewReplies ? viewRepliesUrl : null), fetcher);
 
-  const viewRepliesClicked = () => {
+  function viewRepliesClicked() {
     setViewReplies(true);
-  };
+  }
 
   return (
     <div className="group mt-5 rounded-lg px-5 py-4

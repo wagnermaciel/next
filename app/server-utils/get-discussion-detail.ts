@@ -119,18 +119,10 @@ export async function getCommentReplies(commentId: Number): Promise<Comment[]> {
       }
     }
   }`,
-    {
-      commentId: commentId,
-    }
+    { commentId }
   );
 
-  const {
-    node: {
-      replies: { edges: replies }
-    }
-  } = data;
-
-  return replies.map(
+  return data.node.replies.edges.map(
       ({ node: { id, author, createdAt, bodyHTML} }: any) => ({
         id,
         author: author.login,
